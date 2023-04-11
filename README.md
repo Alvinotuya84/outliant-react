@@ -1,7 +1,7 @@
 ### Installation
 
 _Below are simple instructions of how to install and run the project._
-1. 
+
 1. Clone the repo
    ```sh
    git clone 
