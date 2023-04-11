@@ -165,6 +165,18 @@ function Products({}: Props) {
               </Form>
           </Col>
       </Row>
+      <Row className='py-3'>
+            <Col className='py-3' md="4">
+                <div className='right-container d-flex justify-content-end'>
+
+                </div>
+            </Col>
+            <Col className='py-3 justify-content-flex-end' md="4">
+                <h4>Header Text</h4>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti a aut odio! Eum, facere possimus eaque quo illum ex, facilis totam, ad exercitationem fugiat perferendis rerum. Incidunt dicta animi totam.</p>
+                <Button variant="dark">Call to Action</Button> 
+            </Col>
+        </Row>
     </div>
     
       </div>

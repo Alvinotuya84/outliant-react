@@ -11,7 +11,8 @@ export default function Layout({}: Props) {
     className='px-5'
 
     style={{
-        width:window.innerWidth
+        width:window.innerWidth,
+        padding:"10%"
     }}
     ><Header/>
     
