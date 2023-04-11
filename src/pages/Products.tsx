@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 
 type Props = {}
-const BASE_URL="https://crudcrud.com/api/c5eac168bd624f808736776bc0b5ad6e/products"
+const BASE_URL="https://crudcrud.com/api/917cbdab1473499ba9376fe2b0e0951b/products"
 
 type Product={
     _id:string,
@@ -26,9 +26,9 @@ function Products({}: Props) {
     const [productId, setProductId]=useState<string >("")
     const [searchQuery, setSearchQuery]=useState("")
     const[loading, setLoading]=useState(false)
-// useEffect(() => {
-// fetchAllProducts()
-// }, [])
+ useEffect(() => {
+ fetchAllProducts()
+ }, [])
 
 
     const fetchAllProducts=()=>{
@@ -69,14 +69,17 @@ function Products({}: Props) {
         
         setAddEditLoading(true)
         if(!updateProductMode){
-            axios.post(BASE_URL,data).then(response=>{
+            axios.post(BASE_URL,{
+                ...data
+            }).then(response=>{
                 toast.success("Product added succesfully")
                 setAddEditLoading(false)
                 fetchAllProducts()
                 console.log(response)
             }).catch(e=>{
                 toast.error("An error occured while trying to Add the product")
-    
+                setAddEditLoading(false)
+
                 console.log(e)})
         }else{
              axios.put(BASE_URL+`/${productId}`,{
@@ -119,32 +122,37 @@ function Products({}: Props) {
       </Row>
       <Row>
       <Col md="6">
-          <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-            {
-                filteredData.map((item,index)=>(
-                    <tr key={item._id}>
-                    <td>{item.name}</td>
-                    <td>{item.price}</td>
-                    <td><Button onClick={()=>{
-                        setUpdateProductMode(true)
-                        setProductId(item._id)
-                        reset(item)
-                    }} variant="dark">Edit</Button> <Button onClick={()=>deleteProduct(item._id)} variant="outline-dark">Delete</Button></td>
-                    </tr>
-                ))
-            }
-        
-
-      </tbody>
-    </Table>
+          {
+              loading?(<div>Loading...</div>
+              ):(
+                <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                      {
+                          filteredData.map((item,index)=>(
+                              <tr key={item._id}>
+                              <td>{item.name}</td>
+                              <td>{item.price}</td>
+                              <td><Button onClick={()=>{
+                                  setUpdateProductMode(true)
+                                  setProductId(item._id)
+                                  reset(item)
+                              }} variant="dark">Edit</Button> <Button onClick={()=>deleteProduct(item._id)} variant="outline-dark">Delete</Button></td>
+                              </tr>
+                          ))
+                      }
+                  
+          
+                </tbody>
+              </Table>
+              )
+          }
           </Col>
           <Col md="6" >
               <Form className='add-edit-container p-3 ' onSubmit={handleSubmit(onSubmit)}>
