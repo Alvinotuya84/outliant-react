@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 
 type Props = {}
-const BASE_URL="https://crudcrud.com/api/917cbdab1473499ba9376fe2b0e0951b/products"
+const BASE_URL="https://crudcrud.com/api/843f9835f8124287ad5d3f31d88b8773/products"
 
 type Product={
     _id:string,
@@ -26,9 +26,9 @@ function Products({}: Props) {
     const [productId, setProductId]=useState<string >("")
     const [searchQuery, setSearchQuery]=useState("")
     const[loading, setLoading]=useState(false)
- useEffect(() => {
- fetchAllProducts()
- }, [])
+  useEffect(() => {
+  fetchAllProducts()
+  }, [])
 
 
     const fetchAllProducts=()=>{
@@ -46,9 +46,10 @@ function Products({}: Props) {
 
 
     const deleteProduct=(id:string)=>{
-        setAddEditLoading(true)
 
         if(confirm("Are you sure you want to delete the product?")==true){
+            setAddEditLoading(true)
+
             axios.delete(BASE_URL+`/${id}`).then(response=>{
                 setAddEditLoading(false)
 
@@ -162,7 +163,7 @@ function Products({}: Props) {
         <Form.Control  placeholder="Name" {...register("name") } required/>
       </Form.Group>
       <Form.Group className="mb-3">
-        <Form.Control  placeholder="Price" {...register("price")} required/>
+        <Form.Control type='number' placeholder="Price" {...register("price")} required/>
       </Form.Group>
 
       <Button disabled={addUpdateLoading} type="submit" variant='dark'>
